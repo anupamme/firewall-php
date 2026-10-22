@@ -13,7 +13,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS cats (petname TEXT)");
 if (isset($_GET['petname'])) {
     $petname = $_GET['petname'];
 
-    $db->query("INSERT INTO cats (petname) VALUES ('$petname')");
+    $stmt = $db->prepare("INSERT INTO cats (petname) VALUES (:petname)");
+    $stmt->execute(['petname' => $petname]);
 }
 
 if (isset($_GET['clear'])) {
